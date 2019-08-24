@@ -8,12 +8,13 @@
 
 import Foundation
 
-protocol Quizzable {
+/// Defines a protocol for implementing "Quizzable" objects in the future
+protocol Quizzable: Codable {
     var question: String? {get}
     var answer: [String]? {get}
 }
 
-class Quiz: Quizzable, Codable {
+class Quiz: Quizzable {
     private(set) var question: String?
     private(set) var answer: [String]?
     
