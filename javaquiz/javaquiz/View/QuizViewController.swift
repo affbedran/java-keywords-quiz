@@ -10,21 +10,54 @@ import UIKit
 
 class QuizViewController: UIViewController {
 
+    @IBOutlet private weak var tableView: UITableView!
+    
+    private var viewModel: QuizViewModel? = QuizViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.viewModel?.delegate = self
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    deinit {
+        self.viewModel = nil
     }
-    */
 
+}
+
+extension QuizViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel?.hits.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HitCell", for: indexPath)
+        if let hitKeyword = self.viewModel?.textForHit(at: indexPath) {
+            cell.textLabel?.text = hitKeyword
+        }
+        return cell
+    }
+    
+}
+
+extension QuizViewController: QuizDelegate {
+    func didUpdateTimer(text: String) {
+        
+    }
+    
+    func didHitAnswer() {
+        
+    }
+    
+    func didRunOutOfTime() {
+        
+    }
+    
+    func didFinishQuiz() {
+        
+    }
+    
+    
 }
