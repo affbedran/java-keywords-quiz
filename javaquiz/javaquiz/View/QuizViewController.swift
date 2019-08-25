@@ -29,8 +29,9 @@ class QuizViewController: UIViewController {
         self.viewModel = QuizViewModel()
         self.viewModel?.delegate = self
         
-        setupNavigationController()
+        self.footerView.button.addTarget(self, action: #selector(didTapControl), for: .touchUpInside)
         
+        setupNavigationController()
         registerForKeyboardNotifications()
         
     }
@@ -40,6 +41,7 @@ class QuizViewController: UIViewController {
         self.loader.isHidden = false
         self.viewModel.getQuiz(for: self.viewModel.path)
         self.footerOrigin = self.footerView.frame.origin.y
+        self.searchBar?.isUserInteractionEnabled = false
     }
     
     private func registerForKeyboardNotifications() {
@@ -83,6 +85,18 @@ class QuizViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc func didTapControl() {
+        guard let button = self.footerView.button else { return }
+        if button.isSelected {
+            footerView.resetState()
+            self.viewModel.resetQuiz()
+        } else {
+            self.viewModel.startQuiz()
+        }
+        button.isSelected.toggle()
+        self.searchBar?.isUserInteractionEnabled = button.isSelected
     }
     
     deinit {
@@ -144,15 +158,17 @@ extension QuizViewController: UITableViewDataSource, UITableViewDelegate, UIText
 }
 
 extension QuizViewController: QuizDelegate {
-    func didUpdateTimer(text: String) {
-        
-    }
-    
-    func didHitAnswer() {
+    func didHitAnswer(partial: String, total: String) {
         self.tableView.reloadData()
         self.tableView.scrollToRow(at: IndexPath(row: self.viewModel.hits.count-1, section: 0),
                                    at: .top,
                                    animated: true)
+        self.footerView.hitLabel.text = "\(partial)/\(total)"
+    }
+    
+    func didUpdateTimer(text: String) {
+        print(text)
+        self.footerView.timerLabel.text = text
     }
     
     func didRunOutOfTime() {

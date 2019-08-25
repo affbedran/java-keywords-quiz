@@ -10,7 +10,7 @@ import Foundation
 
 protocol QuizDelegate {
     func didUpdateTimer(text: String)
-    func didHitAnswer()
+    func didHitAnswer(partial: String, total: String)
     func didRunOutOfTime()
     func didFinishQuiz()
     func didFinishLoading()
@@ -25,7 +25,8 @@ protocol QuizViewModelType {
     func getQuiz(for path: Path)
     func textForHit(at path: IndexPath) -> String?
     func calculateHit(with string: String) -> Bool
-    
+    func startQuiz()
+    func resetQuiz()
 }
 
 class QuizViewModel: QuizViewModelType {
@@ -35,6 +36,13 @@ class QuizViewModel: QuizViewModelType {
     private(set) var hits: [String] = []
     private(set) var answer: [String] = []
     private(set) var question: String?
+    
+    static let totalTime = 300 //Total time in seconds
+    private var currentTime = QuizViewModel.totalTime
+    
+    private var isRunningQuiz = false
+    
+    private var timer = Timer()
     
     var delegate: QuizDelegate?
     
@@ -69,10 +77,43 @@ class QuizViewModel: QuizViewModelType {
         let lowKey = string.lowercased()
         if self.answer.contains(lowKey) && !self.hits.contains(lowKey.capitalized) {
             self.hits.append(lowKey.capitalized)
-            self.delegate?.didHitAnswer()
+            self.delegate?.didHitAnswer(partial: String(hits.count), total: String(answer.count))
+            if hits.count == answer.count {
+                self.delegate?.didFinishQuiz()
+            }
             return true
         } else {
             return false
+        }
+    }
+    
+    func startQuiz() {
+        self.startTimer()
+    }
+    func resetQuiz() {
+        self.timer.invalidate()
+        self.isRunningQuiz = false
+        self.currentTime = QuizViewModel.totalTime
+        self.hits = []
+    }
+    
+    private func startTimer() {
+        self.timer = Timer.scheduledTimer(timeInterval: 1,
+                                          target: self,
+                                          selector: #selector(updateTimer),
+                                          userInfo: nil,
+                                          repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        self.currentTime -= 1
+        if currentTime >= 0 {
+            let minutes: Int = currentTime/60
+            let seconds: Int = currentTime % 60
+            
+            self.delegate?.didUpdateTimer(text: "\(minutes):\(seconds)")
+        } else {
+            self.delegate?.didRunOutOfTime()
         }
     }
     

@@ -16,5 +16,11 @@ class QuizFooter: XibLoadedView {
     override func didLoadViewFromXIB() {
         self.button.layer.cornerRadius = 10
         self.button.layer.masksToBounds = true
+        resetState()
+    }
+    
+    func resetState() {
+        self.hitLabel.text = "00/50"
+        self.timerLabel.text = "5:00"
     }
 }

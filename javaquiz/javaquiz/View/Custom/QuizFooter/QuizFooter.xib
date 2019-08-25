@@ -18,28 +18,33 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="139"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="163"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4K-jc-4DE">
-                    <rect key="frame" x="298.5" y="16" width="99.5" height="33"/>
+                    <rect key="frame" x="298.5" y="16" width="99.5" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="iGP-iA-2PY"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQZ-kS-0GR">
-                    <rect key="frame" x="16" y="65" width="382" height="40"/>
+                    <rect key="frame" x="16" y="73" width="382" height="40"/>
                     <color key="backgroundColor" red="1" green="0.51372549019607838" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="zhL-8e-Ewo"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Start">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <state key="selected" title="Reset"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00/50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCS-GG-H59">
-                    <rect key="frame" x="16" y="12" width="103.5" height="41"/>
+                    <rect key="frame" x="16" y="16" width="103.5" height="41"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -49,7 +54,7 @@
             <constraints>
                 <constraint firstItem="mCS-GG-H59" firstAttribute="centerY" secondItem="g4K-jc-4DE" secondAttribute="centerY" id="6sf-pg-C09"/>
                 <constraint firstItem="g4K-jc-4DE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="MdO-Fj-YTe"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="JQZ-kS-0GR" secondAttribute="bottom" id="cPW-SE-Hzk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="JQZ-kS-0GR" secondAttribute="bottom" constant="16" id="cPW-SE-Hzk"/>
                 <constraint firstItem="JQZ-kS-0GR" firstAttribute="top" secondItem="g4K-jc-4DE" secondAttribute="bottom" constant="16" id="fSw-9M-FFf"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="g4K-jc-4DE" secondAttribute="trailing" constant="16" id="fjW-BO-HW8"/>
                 <constraint firstItem="JQZ-kS-0GR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="hWl-rf-a2J"/>
@@ -58,6 +63,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="102.79017857142857"/>
         </view>
     </objects>
 </document>
