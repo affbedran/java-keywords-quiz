@@ -12,13 +12,39 @@ class QuizViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     
-    private var viewModel: QuizViewModel? = QuizViewModel()
+    private var viewModel: QuizViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.viewModel = QuizViewModel()
         self.viewModel?.delegate = self
+        
+        setupNavigationController()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel.getQuiz(for: self.viewModel.path)
+    }
+    
+    func setupNavigationController() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        addMultilineBreakOnTitle()
+    }
+    
+    func addMultilineBreakOnTitle() {
+        for navItem in (self.navigationController?.navigationBar.subviews)! {
+            for subview in navItem.subviews {
+                if let titleLabel = subview as? UILabel {
+                    titleLabel.text = self.title
+                    titleLabel.numberOfLines = 0
+                    titleLabel.lineBreakMode = .byWordWrapping
+                }
+            }
+        }
     }
     
     deinit {
@@ -35,7 +61,7 @@ extension QuizViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HitCell", for: indexPath)
         if let hitKeyword = self.viewModel?.textForHit(at: indexPath) {
-            cell.textLabel?.text = hitKeyword
+            cell.textLabel?.text = hitKeyword.capitalized
         }
         return cell
     }
@@ -59,5 +85,10 @@ extension QuizViewController: QuizDelegate {
         
     }
     
-    
+    func didFinishLoading() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.navigationItem.title = self.viewModel?.question
+        }
+    }
 }
