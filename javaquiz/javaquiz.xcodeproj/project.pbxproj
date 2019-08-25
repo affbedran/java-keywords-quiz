@@ -15,6 +15,9 @@
 		5BF2DB052311CE2900B06081 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB042311CE2900B06081 /* QuizViewModel.swift */; };
 		5BF2DB072311CE4F00B06081 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB062311CE4F00B06081 /* Quiz.swift */; };
 		5BF2DB0A2311D4A500B06081 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB092311D4A500B06081 /* NetworkManager.swift */; };
+		5BF2DB0D2312F9B600B06081 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB0C2312F9B600B06081 /* SearchHeaderView.swift */; };
+		5BF2DB0F2312F9C100B06081 /* XibLoadedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB0E2312F9C100B06081 /* XibLoadedView.swift */; };
+		5BF2DB112312FA8200B06081 /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF2DB102312FA8200B06081 /* SearchHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		5BF2DB042311CE2900B06081 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		5BF2DB062311CE4F00B06081 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		5BF2DB092311D4A500B06081 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		5BF2DB0C2312F9B600B06081 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
+		5BF2DB0E2312F9C100B06081 /* XibLoadedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibLoadedView.swift; sourceTree = "<group>"; };
+		5BF2DB102312FA8200B06081 /* SearchHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,7 @@
 		5BF2DB012311CCC700B06081 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5BF2DB0B2312F95900B06081 /* Custom */,
 				5BF2DB022311CE1000B06081 /* QuizViewController.swift */,
 			);
 			path = View;
@@ -103,6 +110,16 @@
 				5BF2DB092311D4A500B06081 /* NetworkManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		5BF2DB0B2312F95900B06081 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				5BF2DB0C2312F9B600B06081 /* SearchHeaderView.swift */,
+				5BF2DB0E2312F9C100B06081 /* XibLoadedView.swift */,
+				5BF2DB102312FA8200B06081 /* SearchHeaderView.xib */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +183,7 @@
 				5BF2DAF82311CB7300B06081 /* LaunchScreen.storyboard in Resources */,
 				5BF2DAF52311CB7300B06081 /* Assets.xcassets in Resources */,
 				5BF2DAF32311CB7100B06081 /* Main.storyboard in Resources */,
+				5BF2DB112312FA8200B06081 /* SearchHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,9 +196,11 @@
 			files = (
 				5BF2DB052311CE2900B06081 /* QuizViewModel.swift in Sources */,
 				5BF2DAEE2311CB7100B06081 /* AppDelegate.swift in Sources */,
+				5BF2DB0F2312F9C100B06081 /* XibLoadedView.swift in Sources */,
 				5BF2DB0A2311D4A500B06081 /* NetworkManager.swift in Sources */,
 				5BF2DB032311CE1000B06081 /* QuizViewController.swift in Sources */,
 				5BF2DB072311CE4F00B06081 /* Quiz.swift in Sources */,
+				5BF2DB0D2312F9B600B06081 /* SearchHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

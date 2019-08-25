@@ -33,6 +33,8 @@ class QuizViewController: UIViewController {
     }
     
     func setupNavigationController() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         addMultilineBreakOnTitle()
     }
@@ -81,11 +83,11 @@ extension QuizViewController: UITableViewDataSource, UITableViewDelegate, UISear
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
+        return SearchHeaderView()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 70
     }
     
 }
