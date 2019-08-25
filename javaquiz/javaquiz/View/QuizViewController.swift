@@ -29,7 +29,7 @@ class QuizViewController: UIViewController {
         self.viewModel = QuizViewModel()
         self.viewModel?.delegate = self
         
-        self.footerView.button.addTarget(self, action: #selector(didTapControl), for: .touchUpInside)
+        self.footerView.button.addTarget(self, action: #selector(runQuizLoop), for: .touchUpInside)
         
         setupNavigationController()
         registerForKeyboardNotifications()
@@ -87,11 +87,13 @@ class QuizViewController: UIViewController {
         }
     }
     
-    @objc func didTapControl() {
+    @objc func runQuizLoop() {
         guard let button = self.footerView.button else { return }
         if button.isSelected {
-            footerView.resetState()
+            self.searchBar?.searchField.text = ""
+            self.footerView.resetState()
             self.viewModel.resetQuiz()
+            self.tableView.reloadData()
         } else {
             self.viewModel.startQuiz()
         }
@@ -172,11 +174,29 @@ extension QuizViewController: QuizDelegate {
     }
     
     func didRunOutOfTime() {
+        let hits = self.viewModel.hits.count
+        let total = self.viewModel.answer.count
+        let alert = UIAlertController(title: "Time finished",
+                                      message: "Sorry, time is up! You got \(hits) out of \(total) answers.",
+            preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: { (_) in
+            self.runQuizLoop()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func didFinishQuiz() {
+        let alert = UIAlertController(title: "Congratulations",
+                                      message: "Good job! You found all the answers on time. Keep up with the great work.",
+                                      preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "Play Again", style: .default, handler: { (_) in
+            self.runQuizLoop()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func didFinishLoading() {

@@ -40,8 +40,6 @@ class QuizViewModel: QuizViewModelType {
     static let totalTime = 300 //Total time in seconds
     private var currentTime = QuizViewModel.totalTime
     
-    private var isRunningQuiz = false
-    
     private var timer = Timer()
     
     var delegate: QuizDelegate?
@@ -80,6 +78,7 @@ class QuizViewModel: QuizViewModelType {
             self.delegate?.didHitAnswer(partial: String(hits.count), total: String(answer.count))
             if hits.count == answer.count {
                 self.delegate?.didFinishQuiz()
+                self.resetQuiz()
             }
             return true
         } else {
@@ -92,7 +91,6 @@ class QuizViewModel: QuizViewModelType {
     }
     func resetQuiz() {
         self.timer.invalidate()
-        self.isRunningQuiz = false
         self.currentTime = QuizViewModel.totalTime
         self.hits = []
     }
@@ -108,12 +106,21 @@ class QuizViewModel: QuizViewModelType {
     @objc func updateTimer() {
         self.currentTime -= 1
         if currentTime >= 0 {
-            let minutes: Int = currentTime/60
-            let seconds: Int = currentTime % 60
+            let minutes =  formatTimestamp(value: currentTime/60)
+            let seconds = formatTimestamp(value: currentTime % 60) 
             
             self.delegate?.didUpdateTimer(text: "\(minutes):\(seconds)")
         } else {
             self.delegate?.didRunOutOfTime()
+            self.resetQuiz()
+        }
+    }
+    
+    func formatTimestamp(value: Int) -> String {
+        if value.digits.count == 1 {
+            return "0\(value)"
+        } else {
+            return "\(value)"
         }
     }
     
@@ -121,4 +128,10 @@ class QuizViewModel: QuizViewModelType {
         delegate = nil
     }
     
+}
+
+extension BinaryInteger {
+    var digits: [Int] {
+        return String(describing: self).compactMap { Int(String($0)) }
+    }
 }

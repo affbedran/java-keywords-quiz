@@ -21,6 +21,6 @@ class QuizFooter: XibLoadedView {
     
     func resetState() {
         self.hitLabel.text = "00/50"
-        self.timerLabel.text = "5:00"
+        self.timerLabel.text = "05:00"
     }
 }
