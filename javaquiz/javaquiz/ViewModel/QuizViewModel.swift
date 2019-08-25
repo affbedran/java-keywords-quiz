@@ -24,6 +24,7 @@ protocol QuizViewModelType {
     var delegate: QuizDelegate? {get set}
     func getQuiz(for path: Path)
     func textForHit(at path: IndexPath) -> String?
+    func calculateHit(with string: String) -> Bool
     
 }
 
@@ -62,6 +63,17 @@ class QuizViewModel: QuizViewModelType {
         let row = path.row
         guard row < hits.count else { return nil }
         return hits[row]
+    }
+    
+    func calculateHit(with string: String) -> Bool {
+        let lowKey = string.lowercased()
+        if self.answer.contains(lowKey) && !self.hits.contains(lowKey.capitalized) {
+            self.hits.append(lowKey.capitalized)
+            self.delegate?.didHitAnswer()
+            return true
+        } else {
+            return false
+        }
     }
     
     deinit {

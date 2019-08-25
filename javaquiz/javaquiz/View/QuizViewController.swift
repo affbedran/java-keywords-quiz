@@ -11,7 +11,8 @@ import UIKit
 class QuizViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
-    private var searchBar: UITextField?
+    @IBOutlet weak var footerView: QuizFooter!
+    private var searchBar: SearchHeaderView?
     
     private var viewModel: QuizViewModelType!
     
@@ -19,6 +20,7 @@ class QuizViewController: UIViewController {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.keyboardDismissMode = .onDrag
         
         self.viewModel = QuizViewModel()
         self.viewModel?.delegate = self
@@ -57,11 +59,7 @@ class QuizViewController: UIViewController {
 
 }
 
-extension QuizViewController: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-    }
+extension QuizViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         defer {
@@ -83,11 +81,26 @@ extension QuizViewController: UITableViewDataSource, UITableViewDelegate, UISear
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return SearchHeaderView()
+        //This prevents the view from being reinstantiated and keeps a handy reference to it.
+        if let view = self.searchBar {
+            return view
+        } else {
+            let view = SearchHeaderView()
+            self.searchBar = view
+            self.searchBar?.searchField.addTarget(self, action: #selector(didTypeOnSearchField(textField:)), for: .editingChanged)
+            return view
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        //this was not specified and thus was assumed based on overall appearance.
         return 70
+    }
+    
+    @objc func didTypeOnSearchField(textField: UITextField) {
+        if self.viewModel.calculateHit(with: textField.text!) {
+            textField.text = ""
+        }
     }
     
 }
@@ -98,7 +111,7 @@ extension QuizViewController: QuizDelegate {
     }
     
     func didHitAnswer() {
-        
+        self.tableView.reloadData()
     }
     
     func didRunOutOfTime() {
