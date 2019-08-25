@@ -14,34 +14,66 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var footerView: QuizFooter!
     private var searchBar: SearchHeaderView?
     
+    //I declared this variable to save time when calculating keyboard show/hide sizes
+    private var footerOrigin: CGFloat!
+    
+    @IBOutlet private weak var loader: ActivityIndicator!
+    
     private var viewModel: QuizViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.keyboardDismissMode = .onDrag
         
         self.viewModel = QuizViewModel()
         self.viewModel?.delegate = self
         
         setupNavigationController()
         
+        registerForKeyboardNotifications()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.loader.isHidden = false
         self.viewModel.getQuiz(for: self.viewModel.path)
+        self.footerOrigin = self.footerView.frame.origin.y
     }
     
-    func setupNavigationController() {
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default
+            .addObserver(self,
+                         selector: #selector(keyboardWillShow),
+                         name: UIResponder.keyboardWillShowNotification,
+                         object: nil)
+        
+        NotificationCenter.default
+            .addObserver(self,
+                         selector: #selector(keyboardWillHide),
+                         name: UIResponder.keyboardWillHideNotification,
+                         object: nil)
+    }
+    
+    private func setupNavigationController() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         addMultilineBreakOnTitle()
     }
     
-    func addMultilineBreakOnTitle() {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.footerView.frame.origin.y -= keyboardSize.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.footerView.frame.origin.y = self.footerOrigin
+    }
+    
+    private func addMultilineBreakOnTitle() {
         for navItem in (self.navigationController?.navigationBar.subviews)! {
             for subview in navItem.subviews {
                 if let titleLabel = subview as? UILabel {
@@ -59,7 +91,12 @@ class QuizViewController: UIViewController {
 
 }
 
-extension QuizViewController: UITableViewDataSource, UITableViewDelegate {
+extension QuizViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         defer {
@@ -87,6 +124,7 @@ extension QuizViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let view = SearchHeaderView()
             self.searchBar = view
+            self.searchBar?.searchField.delegate = self
             self.searchBar?.searchField.addTarget(self, action: #selector(didTypeOnSearchField(textField:)), for: .editingChanged)
             return view
         }
@@ -112,6 +150,9 @@ extension QuizViewController: QuizDelegate {
     
     func didHitAnswer() {
         self.tableView.reloadData()
+        self.tableView.scrollToRow(at: IndexPath(row: self.viewModel.hits.count-1, section: 0),
+                                   at: .top,
+                                   animated: true)
     }
     
     func didRunOutOfTime() {
@@ -126,6 +167,7 @@ extension QuizViewController: QuizDelegate {
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.navigationItem.title = self.viewModel?.question
+            self.loader.isHidden = true
         }
     }
 }

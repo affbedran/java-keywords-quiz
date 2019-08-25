@@ -13,4 +13,8 @@ class QuizFooter: XibLoadedView {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var hitLabel: UILabel!
     
+    override func didLoadViewFromXIB() {
+        self.button.layer.cornerRadius = 10
+        self.button.layer.masksToBounds = true
+    }
 }

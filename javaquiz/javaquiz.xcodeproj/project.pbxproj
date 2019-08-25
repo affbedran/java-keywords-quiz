@@ -20,6 +20,8 @@
 		5BF2DB112312FA8200B06081 /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF2DB102312FA8200B06081 /* SearchHeaderView.xib */; };
 		5BF2DB1423130BB000B06081 /* QuizFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB1323130BB000B06081 /* QuizFooter.swift */; };
 		5BF2DB1623130BB900B06081 /* QuizFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF2DB1523130BB900B06081 /* QuizFooter.xib */; };
+		5BF2DB1B2313184800B06081 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2DB1A2313184800B06081 /* ActivityIndicator.swift */; };
+		5BF2DB1D2313186500B06081 /* ActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF2DB1C2313186500B06081 /* ActivityIndicator.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		5BF2DB102312FA8200B06081 /* SearchHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHeaderView.xib; sourceTree = "<group>"; };
 		5BF2DB1323130BB000B06081 /* QuizFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizFooter.swift; sourceTree = "<group>"; };
 		5BF2DB1523130BB900B06081 /* QuizFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizFooter.xib; sourceTree = "<group>"; };
+		5BF2DB1A2313184800B06081 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		5BF2DB1C2313186500B06081 /* ActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityIndicator.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +125,9 @@
 			children = (
 				5BF2DB0E2312F9C100B06081 /* XibLoadedView.swift */,
 				5BF2DB1223130B4F00B06081 /* Search Header */,
-				5BF2DB1323130BB000B06081 /* QuizFooter.swift */,
-				5BF2DB1523130BB900B06081 /* QuizFooter.xib */,
+				5BF2DB192313183600B06081 /* QuizFooter */,
+				5BF2DB1A2313184800B06081 /* ActivityIndicator.swift */,
+				5BF2DB1C2313186500B06081 /* ActivityIndicator.xib */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -134,6 +139,15 @@
 				5BF2DB102312FA8200B06081 /* SearchHeaderView.xib */,
 			);
 			path = "Search Header";
+			sourceTree = "<group>";
+		};
+		5BF2DB192313183600B06081 /* QuizFooter */ = {
+			isa = PBXGroup;
+			children = (
+				5BF2DB1323130BB000B06081 /* QuizFooter.swift */,
+				5BF2DB1523130BB900B06081 /* QuizFooter.xib */,
+			);
+			path = QuizFooter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +212,7 @@
 				5BF2DB1623130BB900B06081 /* QuizFooter.xib in Resources */,
 				5BF2DAF52311CB7300B06081 /* Assets.xcassets in Resources */,
 				5BF2DAF32311CB7100B06081 /* Main.storyboard in Resources */,
+				5BF2DB1D2313186500B06081 /* ActivityIndicator.xib in Resources */,
 				5BF2DB112312FA8200B06081 /* SearchHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,6 +231,7 @@
 				5BF2DB0A2311D4A500B06081 /* NetworkManager.swift in Sources */,
 				5BF2DB032311CE1000B06081 /* QuizViewController.swift in Sources */,
 				5BF2DB072311CE4F00B06081 /* Quiz.swift in Sources */,
+				5BF2DB1B2313184800B06081 /* ActivityIndicator.swift in Sources */,
 				5BF2DB0D2312F9B600B06081 /* SearchHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

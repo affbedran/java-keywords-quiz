@@ -38,9 +38,19 @@
                                     <constraint firstAttribute="height" constant="139" id="T91-pc-IYr"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2uF-Xv-Asx" customClass="ActivityIndicator" customModule="javaquiz" customModuleProvider="target">
+                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="6AR-gf-Yl2"/>
+                                    <constraint firstAttribute="width" constant="100" id="AEa-5N-dFy"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="2uF-Xv-Asx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LKT-o6-4wt"/>
+                            <constraint firstItem="2uF-Xv-Asx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Lbx-ut-cmT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xg9-TX-dcQ" secondAttribute="trailing" id="Slx-rp-Yjl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8ed-SN-L0S" secondAttribute="trailing" id="dmj-AS-7vP"/>
                             <constraint firstItem="8ed-SN-L0S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iXa-4t-bgi"/>
@@ -54,6 +64,7 @@
                     <navigationItem key="navigationItem" id="CAO-b7-Ufb"/>
                     <connections>
                         <outlet property="footerView" destination="8ed-SN-L0S" id="L7w-dp-3TB"/>
+                        <outlet property="loader" destination="2uF-Xv-Asx" id="YxB-35-C97"/>
                         <outlet property="tableView" destination="xg9-TX-dcQ" id="Er5-8S-hev"/>
                     </connections>
                 </viewController>
